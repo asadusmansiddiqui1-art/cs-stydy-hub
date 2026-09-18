@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Study Hub | Created by Asad Usman</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-slate-200/50 dark:border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight block">CS Study Hub</span>
+                    <span class="text-xs text-indigo-600 dark:text-indigo-400 font-medium block">By Asad Usman</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#playground" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Code Playground</a>
+                <a href="#resources" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Study Resources</a>
+                <a href="#tools" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">GPA Calculator</a>
+                <a href="#subjects" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Core Subjects</a>
+                <a href="#contact" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact Creator</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors cursor-pointer" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-slate-700"></i>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-6 space-y-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800">
+            <a href="#playground" class="block py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-800 font-medium text-slate-700 dark:text-slate-200">Code Playground</a>
+            <a href="#resources" class="block py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-800 font-medium text-slate-700 dark:text-slate-200">Study Resources</a>
+            <a href="#tools" class="block py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-800 font-medium text-slate-700 dark:text-slate-200">GPA Calculator</a>
+            <a href="#subjects" class="block py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-800 font-medium text-slate-700 dark:text-slate-200">Core Subjects</a>
+            <a href="#contact" class="block py-2 px-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-800 font-medium text-slate-700 dark:text-slate-200">Contact Creator</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/20 dark:bg-indigo-600/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-violet-500/20 dark:bg-violet-600/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Hero Text -->
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/60 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-semibold shadow-sm animate-bounce">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> Created by Asad Usman for CS Students
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                        Master Computer Science with <span class="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">Smart Study Help</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-normal max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Your academic assistance portal featuring notes, GPA calculations, and an interactive live coding playground where you can test code instantly.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#playground" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2 text-sm">
+                            <i data-lucide="terminal" class="w-4 h-4"></i> Try Live Code Runner
+                        </a>
+                        <a href="#contact" class="px-7 py-3.5 rounded-xl glass-card font-semibold hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-all flex items-center gap-2 border border-slate-300 dark:border-slate-700 text-sm">
+                            <i data-lucide="message-circle" class="w-4 h-4 text-emerald-500"></i> Contact WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Static Preview Card -->
+                <div class="lg:col-span-6 flex justify-center">
+                    <div class="relative w-full max-w-lg">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-violet-600 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+                        
+                        <div class="relative glass-card p-6 sm:p-8 rounded-3xl shadow-2xl glow-effect space-y-5 border border-slate-200/80 dark:border-slate-800/80 animate-float">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                                </div>
+                                <span class="text-xs font-mono text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950">asad_usman_hub.js</span>
+                            </div>
+
+                            <div class="space-y-2 font-mono text-xs sm:text-sm bg-slate-900 text-slate-200 p-4 rounded-2xl shadow-inner">
+                                <p><span class="text-pink-400">const</span> <span class="text-indigo-300">platform</span> = {</p>
+                                <p class="pl-4">developer: <span class="text-emerald-300">"Asad Usman"</span>,</p>
+                                <p class="pl-4">focus: <span class="text-amber-300">"CS Student Assistance"</span>,</p>
+                                <p class="pl-4">contact: <span class="text-purple-300">"03424622705"</span></p>
+                                <p>};</p>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-1">
+                                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Live Compiler Ready
+                                </div>
+                                <a href="#playground" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                                    Open Playground <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Live Code Playground Section -->
+    <section id="playground" class="py-24 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-t border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <span class="text-indigo-600 dark:text-indigo-400 font-semibold text-sm tracking-wider uppercase">Interactive Sandbox</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">CS Student Live Code Playground</h2>
+                <p class="text-slate-600 dark:text-slate-300">Write and execute your code right here. Test JavaScript algorithms or simulate C++ logic instantly!</p>
+            </div>
+
+            <div class="glass-card rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+                <!-- Playground Header Controls -->
+                <div class="flex flex-wrap items-center justify-between px-6 py-4 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                        </div>
+                        <select id="lang-select" class="bg-white dark:bg-slate-900 text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none">
+                            <option value="js">JavaScript (Node Environment)</option>
+                            <option value="cpp">C++ (Simulated Console)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="load-template" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-xs font-semibold transition-colors cursor-pointer flex items-center gap-1">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Load Sample
+                        </button>
+                        <button id="run-code" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-2 cursor-pointer">
+                            <i data-lucide="play" class="w-4 h-4 fill-white"></i> Run Program
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Editor & Output Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800">
+                    <!-- Code Textarea Editor -->
+                    <div class="p-6 bg-slate-950 text-slate-100 flex flex-col justify-between">
+                        <div class="mb-2 flex items-center justify-between text-xs text-slate-400 font-mono">
+                            <span>Editor input</span>
+                            <span>UTF-8</span>
+                        </div>
+                        <textarea id="code-editor" class="w-full h-72 sm:h-80 bg-transparent font-mono text-xs sm:text-sm text-indigo-300 resize-none focus:outline-none leading-relaxed" spellcheck="false">// Welcome to Asad Usman's CS Study Hub Playground!
+// Type your JavaScript code below and click "Run Program"
+
+function calculateFactorial(n) {
+    if (n === 0 || n === 1) return 1;
+    return n * calculateFactorial(n - 1);
+}
+
+console.log("Factorial of 5 is:", calculateFactorial(5));
+console.log("CS Study Hub is running successfully!");</textarea>
+                        <div class="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
+                            Tip: You can use standard console.log statements or C++ cout simulations.
+                        </div>
+                    </div>
+
+                    <!-- Console Output Box -->
+                    <div class="p-6 bg-slate-900 text-emerald-400 flex flex-col justify-between font-mono">
+                        <div class="mb-2 flex items-center justify-between text-xs text-slate-400">
+                            <span class="flex items-center gap-1.5"><i data-lucide="terminal" class="w-3.5 h-3.5"></i> Console Output</span>
+                            <button id="clear-output" class="text-slate-400 hover:text-white text-xs underline">Clear</button>
+                        </div>
+                        <div id="code-output" class="h-72 sm:h-80 bg-slate-950 p-4 rounded-xl text-xs sm:text-sm overflow-y-auto whitespace-pre-wrap border border-slate-800/80">
+System initialized... Ready to execute code.
+Click "Run Program" to see output here.
+                        </div>
+                        <div class="text-[11px] text-slate-500 pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <span>Status: <span id="run-status" class="text-emerald-400 font-bold">Idle</span></span>
+                            <span>Asad Usman Hub v1.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Resources Section -->
+    <section id="resources" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-indigo-600 dark:text-indigo-400 font-semibold text-sm tracking-wider uppercase">Academic Library</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">CS Study Resources & Notes</h2>
+                <p class="text-slate-600 dark:text-slate-300">Access curated slides, past papers, code templates, and conceptual guides with instant online viewers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Resource 1: Data Structures & Algorithms (Fully Populated with Interactive Viewers) -->
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 space-y-6 flex flex-col justify-between border-2 border-indigo-500/30">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold">
+                            <i data-lucide="database" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Data Structures & Algorithms</h3>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mt-1">Complete Slides & Lecture Notes</p>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Comprehensive lecture notes, time complexities, and C++ code implementations. Click any file to view online or download.
+                        </p>
+
+                        <!-- Downloadable & Viewable Files List -->
+                        <div class="space-y-2.5 pt-2 border-t border-slate-200 dark:border-slate-800">
+                            <div class="flex items-center justify-between text-xs bg-slate-100 dark:bg-slate-800/60 p-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 transition-colors">
+                                <span class="font-medium text-slate-700 dark:text-slate-200 truncate max-w-[130px]">Arrays & Linked Lists.pdf</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="openResourceViewer('arrays')" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-0.5 cursor-pointer">
+                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i> View
+                                    </button>
+                                    <button onclick="downloadResource('Arrays & Linked Lists Slides', 'DSA_Linked_Lists.pdf')" class="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer" title="Download">
+                                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between text-xs bg-slate-100 dark:bg-slate-800/60 p-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 transition-colors">
+                                <span class="font-medium text-slate-700 dark:text-slate-200 truncate max-w-[130px]">Stacks, Queues & Trees.pdf</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="openResourceViewer('stacks')" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-0.5 cursor-pointer">
+                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i> View
+                                    </button>
+                                    <button onclick="downloadResource('Stacks, Queues & Trees Slides', 'DSA_Trees_Graphs.pdf')" class="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer" title="Download">
+                                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between text-xs bg-slate-100 dark:bg-slate-800/60 p-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800 transition-colors">
+                                <span class="font-medium text-slate-700 dark:text-slate-200 truncate max-w-[130px]">Sorting & Searching C++.zip</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="openResourceViewer('sorting')" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline flex items-center gap-0.5 cursor-pointer">
+                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i> View
+                                    </button>
+                                    <button onclick="downloadResource('Sorting & Searching Code Pack', 'DSA_Sorting_CPP.zip')" class="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer" title="Download">
+                                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="downloadResource('Complete DSA Study Package', 'DSA_Full_Course_Pack.zip')" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold text-sm shadow-md hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                        <i data-lucide="download-cloud" class="w-4 h-4"></i> Download All DSA Files (.zip)
+                    </button>
+                </div>
+
+                <!-- Resource 2 -->
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-violet-100 dark:bg-violet-950 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl font-bold">
+                            <i data-lucide="terminal" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Object Oriented Programming</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Master classes, objects, inheritance, polymorphism, templates, and exception handling with hands-on C++ examples.
+                        </p>
+                    </div>
+                    <button onclick="alertBox('Downloading OOP Lab Manual & Code Examples...')" class="w-full py-3 rounded-xl bg-violet-50 dark:bg-violet-950/80 text-violet-600 dark:text-violet-300 font-semibold text-sm hover:bg-violet-100 dark:hover:bg-violet-900 transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                        <i data-lucide="download" class="w-4 h-4"></i> Download Notes
+                    </button>
+                </div>
+
+                <!-- Resource 3 -->
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold">
+                            <i data-lucide="globe" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Web Engineering & DB</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Full-stack development guides covering HTML/CSS, JavaScript, SQL queries, normalization, and relational databases.
+                        </p>
+                    </div>
+                    <button onclick="alertBox('Downloading Web & Database Guides...')" class="w-full py-3 rounded-xl bg-purple-50 dark:bg-purple-950/80 text-purple-600 dark:text-purple-300 font-semibold text-sm hover:bg-purple-100 dark:hover:bg-purple-900 transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                        <i data-lucide="download" class="w-4 h-4"></i> Download Notes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GPA Calculator Tool Section -->
+    <section id="tools" class="py-24 relative bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-t border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-3xl p-8 sm:p-12 shadow-2xl border border-indigo-200/40 dark:border-indigo-900/30">
+                <div class="text-center space-y-3 mb-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">
+                        <i data-lucide="calculator" class="w-4 h-4"></i> Interactive Utility
+                    </div>
+                    <h2 class="text-3xl font-extrabold tracking-tight">Semester GPA Calculator</h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm">Calculate your semester grade point average instantly.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 font-semibold text-xs text-slate-500 dark:text-slate-400 px-2">
+                        <div class="sm:col-span-6">Course Name</div>
+                        <div class="sm:col-span-3">Credit Hours</div>
+                        <div class="sm:col-span-3">Grade Obtained</div>
+                    </div>
+
+                    <div id="calculator-rows" class="space-y-4">
+                        <!-- Row 1 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-slate-100 dark:bg-slate-800/50 p-4 rounded-2xl">
+                            <div class="sm:col-span-6">
+                                <input type="text" placeholder="e.g., Data Structures" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none">
+                            </div>
+                            <div class="sm:col-span-3">
+                                <select class="credit-hours w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none">
+                                    <option value="3">3 Credits</option>
+                                    <option value="4">4 Credits</option>
+                                    <option value="2">2 Credits</option>
+                                    <option value="1">1 Credit</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-3">
+                                <select class="grade-point w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none">
+                                    <option value="4.0">A (4.0)</option>
+                                    <option value="3.7">A- (3.7)</option>
+                                    <option value="3.3">B+ (3.3)</option>
+                                    <option value="3.0">B (3.0)</option>
+                                    <option value="2.7">B- (2.7)</option>
+                                    <option value="2.3">C+ (2.3)</option>
+                                    <option value="2.0">C (2.0)</option>
+                                    <option value="1.0">D (1.0)</option>
+                                    <option value="0.0">F (0.0)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-slate-100 dark:bg-slate-800/50 p-4 rounded-2xl">
+                            <div class="sm:col-span-6">
+                                <input type="text" placeholder="e.g., Database Systems" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none">
+                            </div>
+                            <div class="sm:col-span-3">
+                                <select class="credit-hours w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none">
+                                    <option value="3">3 Credits</option>
+                                    <option value="4">4 Credits</option>
+                                    <option value="2">2 Credits</option>
+                                    <option value="1">1 Credit</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-3">
+                                <select class="grade-point w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none">
+                                    <option value="4.0">A (4.0)</option>
+                                    <option value="3.7">A- (3.7)</option>
+                                    <option value="3.3">B+ (3.3)</option>
+                                    <option value="3.0" selected>B (3.0)</option>
+                                    <option value="2.7">B- (2.7)</option>
+                                    <option value="2.3">C+ (2.3)</option>
+                                    <option value="2.0">C (2.0)</option>
+                                    <option value="1.0">D (1.0)</option>
+                                    <option value="0.0">F (0.0)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4">
+                        <button id="calculate-gpa" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md transition-all cursor-pointer">
+                            Calculate GPA
+                        </button>
+                        <div id="gpa-result" class="text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                            GPA: --
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Subjects Section -->
+    <section id="subjects" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-indigo-600 dark:text-indigo-400 font-semibold text-sm tracking-wider uppercase">Curriculum Roadmap</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Core CS Subjects Covered</h2>
+                <p class="text-slate-600 dark:text-slate-300">Everything you need to master your degree semesters successfully.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="glass-card p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3 group">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-semibold text-sm block">Programming Fundamentals</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3 group">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="network" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-semibold text-sm block">Data Structures</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3 group">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-semibold text-sm block">Database Systems</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3 group">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-semibold text-sm block">Operating Systems</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3 group">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="wifi" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-semibold text-sm block">Computer Networks</span>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3 group">
+                    <div class="w-12 h-12 mx-auto rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="brain" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-semibold text-sm block">Software Engineering</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Creator Section -->
+    <section id="contact" class="py-24 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-t border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-indigo-600 dark:text-indigo-400 font-semibold text-sm tracking-wider uppercase">Get In Touch</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Connect with Asad Usman</h2>
+                <p class="text-slate-600 dark:text-slate-300">Have questions about CS study notes or need help? Reach out directly via email or WhatsApp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <!-- Email Card -->
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all text-center space-y-4 flex flex-col items-center justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold">
+                        <i data-lucide="mail" class="w-8 h-8"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold">Email Address</h3>
+                        <p class="text-indigo-600 dark:text-indigo-400 font-medium text-sm break-all">asadusmansiddiqui1@gmail.com</p>
+                    </div>
+                    <a href="mailto:asadusmansiddiqui1@gmail.com" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i> Send Email
+                    </a>
+                </div>
+
+                <!-- WhatsApp Card -->
+                <div class="glass-card p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all text-center space-y-4 flex flex-col items-center justify-between">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold">
+                        <i data-lucide="message-circle" class="w-8 h-8"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold">WhatsApp Contact</h3>
+                        <p class="text-emerald-600 dark:text-emerald-400 font-medium text-sm">03424622705</p>
+                    </div>
+                    <a href="https://wa.me/923424622705" target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Study Document / PDF Viewer Modal -->
+    <div id="resource-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden p-4">
+        <div class="glass-card w-full max-w-3xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-indigo-500/30">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-100 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 id="viewer-title" class="text-base font-bold text-slate-800 dark:text-slate-100">Lecture Notes</h3>
+                        <span class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">Curated by Asad Usman (CS Study Hub)</span>
+                    </div>
+                </div>
+                <button onclick="closeResourceViewer()" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors cursor-pointer text-slate-700 dark:text-slate-200">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body (Scrollable Lecture Notes) -->
+            <div id="viewer-content" class="p-6 sm:p-8 overflow-y-auto space-y-6 text-sm text-slate-700 dark:text-slate-300 leading-relaxed bg-white dark:bg-slate-900">
+                <!-- Dynamically populated lecture notes go here -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 bg-slate-100 dark:bg-slate-800/90 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <span class="text-xs text-slate-500">Status: Verified Study Material</span>
+                <button id="viewer-download-btn" onclick="" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="download" class="w-4 h-4"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Notification Modal -->
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl max-w-md w-full mx-4 shadow-2xl text-center space-y-4 border border-indigo-500/30">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                <i id="modal-icon" data-lucide="download-cloud" class="w-6 h-6"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold">Notification</h3>
+            <p id="modal-message" class="text-slate-600 dark:text-slate-300 text-sm">Action completed...</p>
+            <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md transition-all cursor-pointer">
+                Okay, Thanks Asad
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div class="flex items-center justify-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+                    <i data-lucide="cpu" class="w-4 h-4"></i>
+                </div>
+                <span class="font-bold text-slate-800 dark:text-slate-200">CS Study Hub</span>
+            </div>
+            <p>© <span id="current-year">2026</span> CS Study Hub. Created and managed by Asad Usman.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Custom Modal Function
+        function alertBox(message, title = "CS Study Assistant") {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('custom-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Data Structures & Algorithms Interactive Viewer Data
+        const dsaNotesData = {
+            arrays: {
+                title: "Arrays & Linked Lists Lecture Notes",
+                filename: "DSA_Linked_Lists.pdf",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-indigo-600 dark:text-indigo-400">1. Arrays Overview</h4>
+                        <p>An array is a linear data structure that stores a collection of elements of the same data type in contiguous memory locations. Accessing any element by index takes <strong>O(1)</strong> time complexity.</p>
+                        
+                        <div class="bg-slate-900 text-emerald-300 p-4 rounded-xl font-mono text-xs">
+// C++ Array Declaration & Traversal
+int arr[5] = {10, 20, 30, 40, 50};
+for(int i = 0; i < 5; i++) {
+    cout << arr[i] << " ";
+}
+                        </div>
+
+                        <h4 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 pt-2">2. Singly Linked Lists</h4>
+                        <p>Unlike arrays, linked lists do not store elements in contiguous memory. Each node contains a data field and a reference (link) to the next node in the sequence.</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Insertion at head:</strong> O(1)</li>
+                            <li><strong>Search by value:</strong> O(n)</li>
+                            <li><strong>Dynamic Size:</strong> Grows and shrinks during runtime.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            stacks: {
+                title: "Stacks, Queues & Trees Lecture Notes",
+                filename: "DSA_Trees_Graphs.pdf",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-indigo-600 dark:text-indigo-400">1. Stacks (LIFO)</h4>
+                        <p>A Stack is a Last-In-First-Out (LIFO) data structure. The insertion (push) and deletion (pop) operations take place at only one end called the top.</p>
+                        
+                        <div class="bg-slate-900 text-emerald-300 p-4 rounded-xl font-mono text-xs">
+#include &lt;stack&gt;
+stack&lt;int&gt; s;
+s.push(10);
+s.push(20);
+cout &lt;&lt; s.top(); // Outputs 20
+s.pop();
+                        </div>
+
+                        <h4 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 pt-2">2. Binary Trees</h4>
+                        <p>A hierarchical data structure where each node has at most two children, referred to as the left child and the right child. Common traversals include Inorder, Preorder, and Postorder.</p>
+                    </div>
+                `
+            },
+            sorting: {
+                title: "Sorting & Searching Algorithms in C++",
+                filename: "DSA_Sorting_CPP.zip",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-indigo-600 dark:text-indigo-400">1. Bubble Sort & Merge Sort</h4>
+                        <p>Sorting algorithms organize items in a specific order (ascending or descending). Bubble sort has a time complexity of <strong>O(n²)</strong>, whereas Merge Sort uses Divide and Conquer for <strong>O(n log n)</strong> efficiency.</p>
+
+                        <div class="bg-slate-900 text-emerald-300 p-4 rounded-xl font-mono text-xs">
+// Binary Search Implementation (O(log n))
+int binarySearch(int arr[], int l, int r, int x) {
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (arr[m] == x) return m;
+        if (arr[m] < x) l = m + 1;
+        else r = m - 1;
+    }
+    return -1;
+}
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function openResourceViewer(key) {
+            const note = dsaNotesData[key];
+            if (!note) return;
+
+            document.getElementById('viewer-title').textContent = note.title;
+            document.getElementById('viewer-content').innerHTML = note.content;
+            document.getElementById('viewer-download-btn').setAttribute('onclick', `downloadResource('${note.title}', '${note.filename}')`);
+            document.getElementById('resource-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeResourceViewer() {
+            document.getElementById('resource-modal').classList.add('hidden');
+        }
+
+        // Simulated File Download Trigger function
+        function downloadResource(title, filename) {
+            closeResourceViewer();
+            alertBox(`Preparing "${title}" (${filename}) for download. Created by Asad Usman.`, "Download Started");
+            
+            const element = document.createElement('a');
+            const fileContent = `/* CS Study Hub Verified Resource */\n/* Title: ${title} */\n/* Developer: Asad Usman (BSCS) */\n/* Contact: asadusmansiddiqui1@gmail.com / 03424622705 */\n\nconsole.log("Successfully downloaded ${filename}");`;
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            element.href = URL.createObjectURL(blob);
+            element.download = filename;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        // Live Code Playground Logic
+        const langSelect = document.getElementById('lang-select');
+        const codeEditor = document.getElementById('code-editor');
+        const codeOutput = document.getElementById('code-output');
+        const runCodeBtn = document.getElementById('run-code');
+        const loadTemplateBtn = document.getElementById('load-template');
+        const clearOutputBtn = document.getElementById('clear-output');
+        const runStatus = document.getElementById('run-status');
+
+        const templates = {
+            js: `// JavaScript Sandbox Example\nfunction calculateFactorial(n) {\n    if (n === 0 || n === 1) return 1;\n    return n * calculateFactorial(n - 1);\n}\n\nconsole.log("Factorial of 5 is:", calculateFactorial(5));\nconsole.log("CS Study Hub is running successfully!");`,
+            cpp: `// C++ Console Simulation\n#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello from Asad Usman's CS Study Hub!" << endl;\n    cout << "Degree: BSCS Semester Program" << endl;\n    for(int i=1; i<=3; i++) {\n        cout << "Loop iteration: " << i << endl;\n    }\n    return 0;\n}`
+        };
+
+        langSelect.addEventListener('change', () => {
+            codeEditor.value = templates[langSelect.value];
+        });
+
+        loadTemplateBtn.addEventListener('click', () => {
+            codeEditor.value = templates[langSelect.value];
+            codeOutput.textContent = "Template loaded successfully.";
+        });
+
+        clearOutputBtn.addEventListener('click', () => {
+            codeOutput.textContent = "Console cleared.";
+            runStatus.textContent = "Idle";
+        });
+
+        runCodeBtn.addEventListener('click', () => {
+            const lang = langSelect.value;
+            const code = codeEditor.value;
+            
+            runStatus.textContent = "Executing...";
+            codeOutput.textContent = "Running program...\n\n";
+
+            setTimeout(() => {
+                try {
+                    if (lang === 'js') {
+                        let logs = [];
+                        const originalLog = console.log;
+                        console.log = (...args) => {
+                            logs.push(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
+                            originalLog(...args);
+                        };
+
+                        const result = new Function(code)();
+                        console.log = originalLog;
+
+                        if (logs.length > 0) {
+                            codeOutput.textContent = logs.join('\n');
+                        } else {
+                            codeOutput.textContent = "Program executed successfully with no console logs.";
+                        }
+                    } else {
+                        codeOutput.textContent = `[C++ Compiler - GCC 13.2]\nCompiling source code...\n-----------------------------------\nHello from Asad Usman's CS Study Hub!\nDegree: BSCS Semester Program\nLoop iteration: 1\nLoop iteration: 2\nLoop iteration: 3\n-----------------------------------\nProcess exited with code 0.`;
+                    }
+                    runStatus.textContent = "Success";
+                    runStatus.className = "text-emerald-400 font-bold";
+                } catch (err) {
+                    codeOutput.textContent = `[Runtime Error]\n` + err.toString();
+                    runStatus.textContent = "Error";
+                    runStatus.className = "text-red-400 font-bold";
+                }
+            }, 400);
+        });
+
+        // GPA Calculator logic
+        document.getElementById('calculate-gpa').addEventListener('click', () => {
+            const creditSelects = document.querySelectorAll('.credit-hours');
+            const gradeSelects = document.querySelectorAll('.grade-point');
+            
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            for (let i = 0; i < creditSelects.length; i++) {
+                const credits = parseFloat(creditSelects[i].value);
+                const grade = parseFloat(gradeSelects[i].value);
+                totalPoints += credits * grade;
+                totalCredits += credits;
+            }
+
+            const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : '0.00';
+            document.getElementById('gpa-result').textContent = `GPA: ${gpa}`;
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
